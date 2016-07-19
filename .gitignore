@@ -1,4 +1,3 @@
+/credentials.js
 node_modules/*
 ###
-./web.config
-./credentials.js
