@@ -7,14 +7,14 @@ var builder = require('botbuilder');
 
 // Setup Restify Server
 var server = restify.createServer();
-server.listen(process.env.port || process.env.PORT || 3978, function () {
+server.listen(process.env.port || process.env.PORT || 8888, function () {
    console.log('%s listening to %s', server.name, server.url); 
 });
   
 // Create chat bot
 var connector = new builder.ChatConnector({
-    appId: process.env.MICROSOFT_APP_ID,
-    appPassword: process.env.MICROSOFT_APP_PASSWORD
+    appId: '27f1670b-8a9e-4c18-bd69-dd45a74682ea',
+    appPassword: 'eJqszXuMaLSk6dgaxnq6B8w'
 });
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
@@ -23,6 +23,11 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 
-bot.dialog('/', function (session) {
-    session.send("Hello World");
-});
+bot.dialog('/', [
+	function (session) {
+ 		builder.Prompts.text(session, "Hello! What's your name?");
+	},
+	function (session, results) {
+		session.send('Hello %s!', results.response);
+	}
+]);
