@@ -1,6 +1,6 @@
 var restify = require('restify');
 var builder = require('botbuilder');
-var web = require('./credentials.js')
+var credentials = require('./credentials.js')
 //=========================================================
 // Bot Setup
 //=========================================================
@@ -13,8 +13,8 @@ server.listen(process.env.port || process.env.PORT || 8888, function () {
   
 // Create chat bot
 var connector = new builder.ChatConnector({
-    appId: web.userId,
-    appPassword: web.userPassword
+    appId: credentials.userId,
+    appPassword: credentials.userPassword
 });
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
